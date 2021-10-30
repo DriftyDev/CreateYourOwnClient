@@ -10,11 +10,11 @@ def main():
     if request.method == "POST":
 
         # Discord Id
-        discordId = request.json.get("id")
+        discordId = request.json.get("discordId")
         clientIdentification = base64.b64encode(discordId.encode("UTF-8"))
 
         # API Token
-        token = request.json.get("token")
+        token = request.json.get("apiToken")
 
         # TODO: Prevent request flooding
         ip = request.remote_addr
@@ -25,7 +25,7 @@ def main():
 
         if not os.path.exists(clientIdentification):
 
-            path = clientIdentification.decode("utf-8")
+            path = clientIdentification.decode("UTF-8")
 
             os.mkdir(path)
             defaultJavaPath = os.path.join("default", "src", "main", "resources")
@@ -52,12 +52,9 @@ def main():
 
                 f.close()
 
-
-
-
     else:
 
-        return  (jsonify(error="Bad Request"), 400)
+        return (jsonify(error="Bad Request"), 400)
 
 
 
