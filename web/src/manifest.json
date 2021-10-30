@@ -1,5 +1,5 @@
 {
-    "name":"ClientCreator",
-    "short_name":"CC",
+    "name":"McClientCreator",
+    "short_name":"MCC",
     "start_url":"/index.html"
 }
