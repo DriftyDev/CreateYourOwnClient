@@ -5,7 +5,7 @@ import json
 import os
 
 @routes.route('/create', methods=['GET', 'POST'])
-def main():
+def create():
 
     if request.method == "POST":
 
@@ -23,19 +23,23 @@ def main():
 
             return (jsonify(error="Unauthorized"), 400)
 
-        if not os.path.exists(clientIdentification):
 
-            path = clientIdentification.decode("UTF-8")
+        path = os.path.join(os.getcwd(), "stored", clientIdentification.decode("UTF-8"))
 
-            os.mkdir(path)
-            defaultJavaPath = os.path.join("default", "src", "main", "resources")
-            defaultResourcesPath = os.path.join("default", "src", "main", "resources")
+        if not os.path.exists(path):
 
-            javaPath = os.mkdir(os.path.join(path, "src", "main", "java"))
-            resourcesPath = os.mkdir(os.path.join(path, "src", "main", "resources"))
+            os.makedirs(path)
+            defaultJavaPath = os.path.join(os.getcwd(), "default", "src", "main", "java")
+            defaultResourcesPath = os.path.join(os.getcwd(), "default", "src", "main", "resources")
+
+            javaPath = os.path.join(path, "src", "main", "java")
+            os.makedirs(javaPath)
+
+            resourcesPath = os.path.join(path, "src", "main", "resources")
+            os.makedirs(resourcesPath)
 
             f = open(os.path.join(defaultResourcesPath, "mcmod.info"))
-            modInfoDefault = f.read()
+            modInfoDefault = json.load(f)
 
             with open(os.path.join(resourcesPath, "mcmod.info"), "w") as f:
 
@@ -44,7 +48,7 @@ def main():
                 f.close()
 
             f = open(os.path.join(defaultResourcesPath, "mixins.json"))
-            mixinsDefault = f.read
+            mixinsDefault = json.load(f)
 
             with open(os.path.join(resourcesPath, "mixins.json"), "w") as f:
 

@@ -1,6 +1,5 @@
 from flask import request, jsonify
 
-from backend.py.routes import create
 from . import routes
 import base64
 import json
@@ -8,7 +7,7 @@ import os
 
 
 @routes.route('/update', methods=['GET', 'POST'])
-def main():
+def update():
 
     if request.method == "POST":
 
@@ -41,7 +40,7 @@ def main():
 
             if os.path.exists(clientIdentification):
                 
-                path = clientIdentification.decode("UTF-8")
+                path = os.path.join(os.getcwd(), "stored", clientIdentification.decode("UTF-8"))
 
                 resourcesPath = os.path.join(path, "src", "main", "resources")
 
@@ -58,7 +57,7 @@ def main():
             # Args
             newMixin = request.json.get("mixin")
 
-            path = clientIdentification.decode("UTF-8")
+            path = os.path.join(os.getcwd(), clientIdentification.decode("UTF-8"))
 
             resourcesPath = os.path.join(path, "src", "main", "resources")
 

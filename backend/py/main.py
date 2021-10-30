@@ -7,7 +7,7 @@ def main():
         app.register_blueprint(routes)
         app.run(host="0.0.0.0", port="443", debug=False)
     except Exception as e:
-        print("An error occurred: " + e)
+        print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
     main()
