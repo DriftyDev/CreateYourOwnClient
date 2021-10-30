@@ -5,7 +5,7 @@ function getDiscordId() {
 }
 
 function updateModInfo(modId, modName, modDescription, modVersion, modLogoFile, modUrl) {
-    var request = $.post("https://api.mcclientcreator.org/update", {
+    var json = {
         discordId: getDiscordId(),
         apiToken: apiToken,
         method: "MOD_INFO",
@@ -15,14 +15,26 @@ function updateModInfo(modId, modName, modDescription, modVersion, modLogoFile, 
         version: modVersion,
         logoFile: modLogoFile,
         url: modUrl
-    })
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: 'https://api.mcclientcreator.org/update',
+        data: json
+    });
 }
 
 function addMixin(newMixin) {
-    var request = $.post("https://api.mcclientcreator.org/update", {
+    var json = {
         discordId: getDiscordId(),
         apiToken: apiToken,
         method: "MIXINS",
         mixin: newMixin
-    })
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: 'https://api.mcclientcreator.org/update',
+        data: json
+    });
 }
