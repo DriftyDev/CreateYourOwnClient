@@ -23,18 +23,26 @@ def file():
             return (jsonify(error="Unauthorized"), 400)
 
         # Args
-        package = request.json.get("path")
+        package = request.json.get("path") # org.mcclientcreator.main
         
         if os.path.exists(os.path.join(os.getcwd(), "stored", clientIdentification)):
 
             if request.files:
 
-                file = request.files["file"]
+                file = request.files["file"] # MCC.java
                 
                 if file.filename.split(".")[1] == "java":
                     
                     javaPath = os.path.join(os.getcwd(), "stored", clientIdentification, "src", "main", "java")
-                    path = os.path.join(javaPath, package.replace(".", os.path.sep), file.filename)
+                    packPath = package.replace(".", os.pathsep) # Bye, bye (.), Hello os.path.sep
+                    path = javaPath
+
+                    for i in packPath:
+
+                        path = os.path.join(path, i)
+
+                        if not os.path.exists(path):
+                            os.mkdir(path)
 
                     file.save(path)
 
