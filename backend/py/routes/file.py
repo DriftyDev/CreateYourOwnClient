@@ -44,7 +44,7 @@ def file():
                         if not os.path.exists(path):
                             os.mkdir(path)
 
-                    file.save(path)
+                    file.save(os.path.join(path, file.filename))
 
         else:
             return (jsonify(error="Bad Request"), 400)
