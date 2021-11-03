@@ -3,8 +3,8 @@ from . import routes
 import base64
 import os
 
-@routes.route('/gradlew/build', methods=['GET', 'POST'])
-def build():
+@routes.route('/gradlew', methods=['GET', 'POST'])
+def gradlew():
 
     if request.method == "POST":
 
@@ -22,12 +22,20 @@ def build():
 
             return (jsonify(error="Unauthorized"), 400)
 
+        # Args
+        action = request.json.get("action")
+
+        if not action:
+
+            return (jsonify(error="Bad Request"), 400)
+
+
         path = os.path.join(os.getcwd(), "stored", clientIdentification.decode("UTF-8"))
         defaultPath = os.path.join(os.getcwd(), "default")
         gradlew = os.path.join(defaultPath, "gradlew")
 
-        os.system(f"cd {path}; ./{gradlew} build")
+        os.system(f"cd {path}; ./{gradlew} {action}")
 
-    return jsonify(success=True)          
+    return jsonify(success=True)
 
         
