@@ -1,4 +1,4 @@
- javaEditor = CodeMirror(document.querySelector(".container .code"), {
+javaEditor = CodeMirror.fromTextArea(document.getElementById("content"), {
     lineNumbers: true,
     styleActiveLine: true,
     matchBrackets: true,
@@ -6,6 +6,6 @@
     mode: "text/x-java"
 });
 
-$( document ).ready(function() {
+$(document).ready(function() {
     javaEditor.setOption("theme", "oceanic");
 });
