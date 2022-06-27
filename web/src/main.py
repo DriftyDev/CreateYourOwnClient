@@ -42,7 +42,7 @@ def getDiscordData(access_token, token_type):
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", login_uri="http://localhost:8080/login")
 
 @app.route('/login')
 def login():
