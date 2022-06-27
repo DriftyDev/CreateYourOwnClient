@@ -1,0 +1,5 @@
+{% if access_token %}
+	<script> location.href = "http://localhost:8080/dashboard?access_token={{access_token}}&token_type={{token_type}}&expires_in"; </script>
+{% else %}
+
+{% endif %}

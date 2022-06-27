@@ -1,2 +1,4 @@
 post.py
 /stored
+/web/src/json/config.json
+/backend/py/routes/__pycache__/*

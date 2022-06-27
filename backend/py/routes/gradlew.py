@@ -35,6 +35,8 @@ def gradlew():
         gradlew = os.path.join(defaultPath, "gradlew")
 
         os.system(f"cd {path}; ./{gradlew} {action}")
+    else:
+        return (jsonify(error="Bad Request"), 400) 
 
     return jsonify(success=True)
 

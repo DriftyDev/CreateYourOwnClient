@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="UTF-8">
+    <title>MC Client Creator</title>
+    <meta name="description" content="">
+    <meta name="author" content="Drifty">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/img/logofinalnobg.png') }}">
+
+    <meta property="og:title" content="Mc Client Creator">
+    <meta property="og:description" content="Client Creator :cool:">
+    <meta property="og:site_name" content="mcclientcreator.org">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mcclientcreator.org">
+    <meta property="og:image" content="{{ url_for('static', filename='assets/img/logofinalnobg.png') }}">
+    
+    <link href="{{ url_for('static', filename='assets/css/style.css') }}" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
+    <script src="{{ url_for('static', filename='assets/js/main.js') }}"> </script>
+    <script> window.history.pushState("", "", "dashboard"); </script>
+
+
+</head>
+<body>
+
+    <h1>Welcome back, </h1>
+
+    <p>Firt release on 2022.</p>
+
+    <div> {{ discord_data }} </div>
+
+</html>
