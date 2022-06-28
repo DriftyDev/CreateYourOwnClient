@@ -5,10 +5,10 @@ import json
 
 app = Flask(__name__)
 
-config = None;
+config = None
 
 with open('json/config.json') as f:
-   config = json.load(f)
+  config = json.load(f)
 
 def exchange_code(code):
   data = {
@@ -42,58 +42,56 @@ def getDiscordData(access_token, token_type):
 
 @app.route('/')
 def index():
-    return render_template("index.html", login_uri="http://localhost:8080/login")
+  return render_template("index.html", login_uri="http://localhost:8080/login")
 
 @app.route('/login')
 def login():
-    return render_template("login.html", oauth_uri=config["Discord"]["OAuth2Uri"])
+  return render_template("login.html", oauth_uri=config["Discord"]["OAuth2Uri"])
 
 @app.route('/oauth')
 def callback():
-    args = request.args
-    code = args.get("code")
-    data = exchange_code(code)
+  args = request.args
+  code = args.get("code")
+  data = exchange_code(code)
 
-    resp = make_response(redirect("http://localhost:8080/dashboard"))
+  resp = make_response(redirect("http://localhost:8080/dashboard"))
 
-    resp.set_cookie("access_token", data["access_token"], max_age=int(data["expires_in"]))
-    resp.set_cookie("token_type", data["token_type"], max_age=int(data["expires_in"]))
-    resp.set_cookie("refresh_token", data["refresh_token"], max_age=int(data["expires_in"]))
-    resp.set_cookie("scope", data["scope"], max_age=int(data["expires_in"]))
+  resp.set_cookie("access_token", data["access_token"], max_age=int(data["expires_in"]))
+  resp.set_cookie("token_type", data["token_type"], max_age=int(data["expires_in"]))
+  resp.set_cookie("refresh_token", data["refresh_token"], max_age=int(data["expires_in"]))
+  resp.set_cookie("scope", data["scope"], max_age=int(data["expires_in"]))
 
-    resp.set_cookie("discord_data", json.dumps(getDiscordData(data["access_token"], data["token_type"])), max_age=int(data["expires_in"]))
+  resp.set_cookie("discord_data", json.dumps(getDiscordData(data["access_token"], data["token_type"])), max_age=int(data["expires_in"]))
 
-    return resp
+  return resp
 
 @app.route('/dashboard')
 def dashboard():
-    if not request.cookies.get("access_token"):
-      return (jsonify(error="Unauthorized"), 400)
+  if not request.cookies.get("access_token"):
+    return (jsonify(error="Unauthorized"), 400)
 
-    discord = json.loads(request.cookies.get("discord_data"))
+  discord = json.loads(request.cookies.get("discord_data"))
 
-    discord_id = discord["id"]
-    discord_username = discord["username"]
-    discord_avatar = discord["avatar"]
-    discord_avatar_decoration = discord["avatar_decoration"]
-    discord_discriminator = discord["discriminator"]
-    discord_public_flags = discord["public_flags"]
-    discord_flags = discord["flags"]
-    discord_banner = discord["banner"]
-    discord_banner_color = discord["banner_color"]
-    discord_accent_color = discord["accent_color"]
-    discord_locale = discord["locale"]
-    discord_mfa_enabled = discord["mfa_eanbled"]
-    
-    resp = make_response(render_template("dashboard.html", ))
+  discord_id = discord["id"]
+  discord_username = discord["username"]
+  discord_avatar = discord["avatar"]
+  #discord_avatar_decoration = discord["avatar_decoration"]
+  discord_discriminator = discord["discriminator"]
+  #discord_public_flags = discord["public_flags"]
+  #discord_flags = discord["flags"]
+  discord_banner = discord["banner"]
+  discord_banner_color = discord["banner_color"]
+  #discord_accent_color = discord["accent_color"]
+  discord_locale = discord["locale"]
+  #discord_mfa_enabled = discord["mfa_eanbled"]
 
-    return resp
+  return render_template("dashboard.html", discord_id=discord_id, discord_username=discord_username, discord_discriminator=discord_discriminator, discord_avatar=discord_avatar, discord_banner=discord_banner, discord_banner_color=discord_banner_color, discord_locale=discord_locale)
 
 def main():
-    try:
-        app.run(host="0.0.0.0", port="8080", debug=False)
-    except Exception as e:
-        print(f"An error occurred: {e}")
+  try:
+    app.run(host="0.0.0.0", port="8080", debug=False)
+  except Exception as e:
+    print(f"An error occurred: {e}")
 
 if __name__ == "__main__":
-    main()
+  main()
