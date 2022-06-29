@@ -9,4 +9,4 @@ from .index import *
 from .login import *
 from .panel import *
 
-config = json.load(open('json/config.json'))
+config = json.load(open('.../json/config.json'))
