@@ -1,12 +1,11 @@
 from flask import request, jsonify
-
-from . import routes
+from . import api
 import base64
 import json
 import os
 
 
-@routes.route('/update', methods=['GET', 'POST'])
+@api.route('/update', methods=['GET', 'POST'])
 def update():
 
     if request.method == "POST":

@@ -1,6 +1,6 @@
 from flask import Blueprint
 
-routes = Blueprint('routes', __name__)
+api = Blueprint('api', __name__, url_prefix='/api')
 
 from .gradlew import *
 from .update import *

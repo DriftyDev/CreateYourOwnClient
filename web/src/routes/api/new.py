@@ -1,10 +1,10 @@
 from flask import request, jsonify
-from . import routes
+from . import api
 import base64
 import json
 import os
 
-@routes.route('/create', methods=['GET', 'POST'])
+@api.route('/new', methods=['GET', 'POST'])
 def new():
 
     if request.method == "POST":

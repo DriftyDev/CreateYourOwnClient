@@ -20,16 +20,25 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"> </script>
     <script src="{{ url_for('static', filename='assets/js/main.js') }}"> </script>
-    <script> window.history.pushState("", "", "dashboard"); </script>
+    <script> window.history.pushState("", "", "panel"); </script>
 
 
 </head>
 <body>
 
-    <h1>Welcome back, </h1>
+    <h1>Welcome back, {{discord_username}}.</h1>
 
-    <p>Firt release on 2022.</p>
+    <p>Manage your clients.</p>
 
-    <div> {{ discord_data }} </div>
+    <div> {{}} </div>
+
+    <form action="" method="post">
+        <input type="password" id="mod_name" name="Name"/><br>
+        <input type="password" id="mod_description" name="Description"/><br>
+        <input type="password" id="mod_version" name="Version"/><br>
+        <input type="password" id="mod_logoFile" name="Logo File"/><br>
+        <input type="password" id="mod_url" name="Url"/><br>
+        <input type="submit" id="send-form" name="form" value="create"/>
+    </form>
 
 </html>

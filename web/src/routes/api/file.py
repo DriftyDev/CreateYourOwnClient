@@ -1,9 +1,9 @@
 from flask import request, jsonify
-from . import routes
+from . import api
 import base64
 import os
 
-@routes.route('/upload/java', methods=['GET', 'POST'])
+@api.route('/upload', methods=['GET', 'POST'])
 def file():
 
     if request.method == "POST":
@@ -29,7 +29,7 @@ def file():
 
             if request.files:
 
-                file = request.files["file"] # MCC.java
+                file = request.files["file"] # main.java
                 
                 if file.filename.split(".")[1] == "java":
                     
@@ -54,4 +54,4 @@ def file():
 
         return (jsonify(error="Bad Request"), 400)
 
-    return jsonify(success=True)    
+    return jsonify(success=True) 

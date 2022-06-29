@@ -1,9 +1,9 @@
 from flask import request, jsonify
-from . import routes
+from . import api
 import base64
 import os
 
-@routes.route('/gradlew', methods=['GET', 'POST'])
+@api.route('/gradlew', methods=['GET', 'POST'])
 def gradlew():
 
     if request.method == "POST":
